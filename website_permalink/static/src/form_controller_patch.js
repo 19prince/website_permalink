@@ -4,14 +4,12 @@ import { PermalinkDialog } from "./permalink_dialog";
 
 // Every save path (Save button, autosave on leaving, Go to Website, pager)
 // goes through onWillSaveRecord, so asking here means a rename never slips
-// through unseen. No-op on forms without the permalink fields.
+// through unseen. No-op on forms without the permalink fields; the server
+// only flags a rename on pages that have ever been published.
 patch(FormController.prototype, {
     async onWillSaveRecord(record, changes) {
         const proceed = await super.onWillSaveRecord(...arguments);
         if (proceed === false || record !== this.model.root || !record.data.permalink_name_changed) {
-            return proceed;
-        }
-        if ("is_published" in record.data && !record.data.is_published) {
             return proceed;
         }
         const choice = await new Promise((resolve) => {

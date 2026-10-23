@@ -5,7 +5,7 @@ class WebsiteSeoMetadata(models.AbstractModel):
     _inherit = 'website.seo.metadata'
 
     # form-only helpers: never stored, consumed by write()
-    permalink_url = fields.Char('URL', compute='_compute_permalink_url')
+    permalink_url = fields.Char('Permalink URL', compute='_compute_permalink_url')
     permalink_name_changed = fields.Boolean(compute='_compute_permalink_changed')
     permalink_slug_changed = fields.Boolean(compute='_compute_permalink_changed')
     permalink_update_url = fields.Boolean(
@@ -21,6 +21,19 @@ class WebsiteSeoMetadata(models.AbstractModel):
         self.ensure_one()
         return 'website_url' in self._fields and self.website_url
 
+    def _permalink_live(self):
+        """Whether this record's URL has ever been public and so is worth keeping.
+
+        Models without a publish flag (categories) are always live. Checked here
+        rather than overridden in website.permalink.published.mixin: models list
+        the SEO mixin first, so an override there would never be reached.
+        """
+        self.ensure_one()
+        if 'permalink_was_published' in self._fields:
+            return self.is_published or self.permalink_was_published
+        # models without a bridge (events, ...): live only while published
+        return self.is_published if 'is_published' in self._fields else True
+
     def _compute_permalink_url(self):
         for rec in self:
             # the saved URL, so the form shows what visitors use until save
@@ -31,7 +44,8 @@ class WebsiteSeoMetadata(models.AbstractModel):
         for rec in self:
             origin = rec._origin
             rec.permalink_name_changed = bool(
-                origin.id and rec._rec_name and rec[rec._rec_name] != origin[rec._rec_name])
+                origin.id and rec._rec_name and rec[rec._rec_name] != origin[rec._rec_name]
+                and origin._permalink_live())
             rec.permalink_slug_changed = bool(origin.id and rec.seo_name != origin.seo_name)
 
     @api.depends()
@@ -63,9 +77,9 @@ class WebsiteSeoMetadata(models.AbstractModel):
 
         old = {}
         if renaming or 'seo_name' in vals:
-            # drafts are skipped: nobody links to an unpublished page yet
+            # never-published drafts are skipped: nobody has linked to them yet
             for rec in self:
-                if rec.id and getattr(rec, 'is_published', True) and rec._permalink_url():
+                if rec.id and rec._permalink_live() and rec._permalink_url():
                     old[rec.id] = (rec._permalink_url(), rec.display_name, rec.seo_name)
 
         res = super().write(vals)

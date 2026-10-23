@@ -1,7 +1,7 @@
 {
     "name": "Website Permalink - Blog",
     "summary": "URL controls for website_permalink on Blog forms.",
-    "version": "18.0.1.2.0",
+    "version": "18.0.1.3.0",
     "category": "Website/Website",
     "license": "LGPL-3",
     "author": "19 Prince",

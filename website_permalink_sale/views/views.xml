@@ -6,7 +6,7 @@
         <field name="inherit_id" ref="website_sale.product_template_form_view"/>
         <field name="arch" type="xml">
             <xpath expr="//div[hasclass('oe_title')]" position="after">
-                <div class="alert alert-info" role="status" invisible="not permalink_name_changed or not is_published">
+                <div class="alert alert-info" role="status" invisible="not permalink_name_changed">
                     <field name="permalink_name_changed" invisible="1"/>
                     <field name="permalink_slug_changed" invisible="1"/>
                     <div class="fw-bold">Website Permalink kept this page's URL.</div>
@@ -14,7 +14,7 @@
                 </div>
             </xpath>
             <group name="extra_info" position="inside">
-                <field name="permalink_url" readonly="1" invisible="not permalink_url"/>
+                <field name="permalink_url" string="URL" readonly="1" invisible="not permalink_url"/>
                 <field name="seo_name" string="URL Slug" placeholder="Follows the name"/>
                 <field name="permalink_redirect" invisible="not permalink_slug_changed or permalink_name_changed"/>
             </group>
@@ -27,7 +27,7 @@
         <field name="inherit_id" ref="website_sale.product_public_category_form_view"/>
         <field name="arch" type="xml">
             <field name="parent_id" position="after">
-                <field name="permalink_url" readonly="1" invisible="not permalink_url"/>
+                <field name="permalink_url" string="URL" readonly="1" invisible="not permalink_url"/>
                 <field name="seo_name" string="URL Slug" placeholder="Follows the name"/>
                 <field name="permalink_redirect" invisible="not permalink_slug_changed or permalink_name_changed"/>
             </field>

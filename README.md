@@ -16,7 +16,7 @@ Odoo builds product, category and blog post URLs from the name, so renaming one 
 
 - Saving a renamed published record opens a dialog: **Keep URL** (default) or **Change URL to match the new name**, with **Redirect the old URL (301)** pre-checked.
 - Import, API and server actions never show the dialog and always keep the URL.
-- Unpublished records follow their name freely.
+- Pages never published follow their name freely. Once a page has been published (blog posts and products track this), its URL is kept even while unpublished. Other models keep it only while published.
 - Editing the URL Slug directly adds a 301 from the old URL, unless unchecked.
 - Redirect chains collapse to one hop; renaming back removes the reverse redirect.
 - Website pages are untouched: their URL is already stored separately.

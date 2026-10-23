@@ -34,6 +34,31 @@ class TestPermalink(TransactionCase):
         self.assertFalse(draft.seo_name)
         self.assertEqual(draft.website_url, '/shop/final-%s' % draft.id)
 
+    def test_publish_flag_is_sticky(self):
+        draft = self.env['product.template'].create({'name': 'Draft', 'is_published': False})
+        self.assertFalse(draft.permalink_was_published)
+        draft.is_published = True
+        draft.is_published = False
+        self.assertTrue(draft.permalink_was_published)
+
+    def test_unpublished_after_publish_keeps_url(self):
+        self.product.is_published = False
+        self.product.name = 'Renamed While Hidden'
+        self.product.is_published = True
+        self.assertEqual(self.product.website_url, self.old_url)
+
+    def test_form_flags_rename_of_unpublished_live_page(self):
+        self.product.is_published = False
+        with Form(self.product) as form:
+            form.name = 'Renamed While Hidden'
+            self.assertTrue(form.permalink_name_changed)
+
+    def test_form_ignores_rename_of_never_published_draft(self):
+        draft = self.env['product.template'].create({'name': 'Draft', 'is_published': False})
+        with Form(draft) as form:
+            form.name = 'Final'
+            self.assertFalse(form.permalink_name_changed)
+
     def test_unrelated_write_does_not_pin(self):
         self.product.description_sale = 'x'
         self.assertFalse(self.product.seo_name)
