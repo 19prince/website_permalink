@@ -1,15 +1,15 @@
 import { _t } from "@web/core/l10n/translation";
 import { Dialog } from "@web/core/dialog/dialog";
-import { Component, useState } from "@odoo/owl";
+import { Component, proxy, t, useProps } from "@odoo/owl";
 
 export class PermalinkDialog extends Component {
     static template = "website_permalink.PermalinkDialog";
     static components = { Dialog };
-    static props = { close: Function, url: String, resolve: Function };
+    props = useProps({ close: t.function(), url: t.string(), resolve: t.function() });
 
     setup() {
         this.title = _t("Website Permalink");
-        this.state = useState({ choice: "keep", redirect: true });
+        this.state = proxy({ choice: "keep", redirect: true });
     }
 
     save() {

@@ -1,6 +1,6 @@
 # Website Permalink
 
-Keep a published page's URL when you rename it. Odoo 19.
+Keep a published page's URL when you rename it. Odoo 20.
 
 Odoo builds product, category and blog post URLs from the name, so renaming one moves its URL and loses its links and search rankings. On rename, this module copies the old slug into `seo_name`, which core Odoo already uses for the URL, so the URL stays put.
 
