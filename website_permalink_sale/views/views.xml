@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="product_template_form_view" model="ir.ui.view">
+        <field name="name">product.template.form.permalink</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="website_sale.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('oe_title')]" position="after">
+                <div class="alert alert-info" role="status" invisible="not permalink_name_changed or not is_published">
+                    <field name="permalink_name_changed" invisible="1"/>
+                    <field name="permalink_slug_changed" invisible="1"/>
+                    <div class="fw-bold">Website Permalink kept this page's URL.</div>
+                    <field name="permalink_url" readonly="1" nolabel="1"/>
+                </div>
+            </xpath>
+            <group name="extra_info" position="inside">
+                <field name="permalink_url" readonly="1" invisible="not permalink_url"/>
+                <field name="seo_name" string="URL Slug" placeholder="Follows the name"/>
+                <field name="permalink_redirect" invisible="not permalink_slug_changed or permalink_name_changed"/>
+            </group>
+        </field>
+    </record>
+
+    <record id="product_public_category_form_view" model="ir.ui.view">
+        <field name="name">product.public.category.form.permalink</field>
+        <field name="model">product.public.category</field>
+        <field name="inherit_id" ref="website_sale.product_public_category_form_view"/>
+        <field name="arch" type="xml">
+            <field name="parent_id" position="after">
+                <field name="permalink_url" readonly="1" invisible="not permalink_url"/>
+                <field name="seo_name" string="URL Slug" placeholder="Follows the name"/>
+                <field name="permalink_redirect" invisible="not permalink_slug_changed or permalink_name_changed"/>
+            </field>
+            <xpath expr="//sheet/div" position="before">
+                <div class="alert alert-info" role="status" invisible="not permalink_name_changed">
+                    <field name="permalink_name_changed" invisible="1"/>
+                    <field name="permalink_slug_changed" invisible="1"/>
+                    <div class="fw-bold">Website Permalink kept this page's URL.</div>
+                    <field name="permalink_url" readonly="1" nolabel="1"/>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

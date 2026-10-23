@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_blog_post_form" model="ir.ui.view">
+        <field name="name">blog.post.form.permalink</field>
+        <field name="model">blog.post</field>
+        <field name="inherit_id" ref="website_blog.view_blog_post_form"/>
+        <field name="arch" type="xml">
+            <group name="blog_details" position="before">
+                <div class="alert alert-info" role="status" invisible="not permalink_name_changed or not is_published">
+                    <field name="permalink_name_changed" invisible="1"/>
+                    <field name="permalink_slug_changed" invisible="1"/>
+                    <div class="fw-bold">Website Permalink kept this page's URL.</div>
+                    <field name="permalink_url" readonly="1" nolabel="1"/>
+                </div>
+            </group>
+            <field name="subtitle" position="after">
+                <field name="permalink_url" readonly="1" invisible="not permalink_url"/>
+                <field name="seo_name" string="URL Slug" placeholder="Follows the name"/>
+                <field name="permalink_redirect" invisible="not permalink_slug_changed or permalink_name_changed"/>
+            </field>
+        </field>
+    </record>
+</odoo>
