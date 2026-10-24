@@ -21,6 +21,19 @@ Odoo builds product, category and blog post URLs from the name, so renaming one 
 - Redirect chains collapse to one hop; renaming back removes the reverse redirect.
 - Website pages are untouched: their URL is already stored separately.
 
+## For AI agents and API clients
+
+Renames through the API, imports or an MCP server never show the dialog, so the URL is always kept. Before you rename a published page, product or category:
+
+1. **Ask the user** whether the URL should stay or change to match the new name.
+2. To change it, send `permalink_update_url: true` in the same `write` as the new name.
+3. A 301 redirect from the old URL is added automatically. Send `permalink_redirect: false` only if the user explicitly says not to redirect.
+
+```python
+record.write({'name': 'New Title', 'permalink_update_url': True})  # URL follows the new name, old URL 301s
+record.write({'name': 'New Title'})                                # URL kept (default)
+```
+
 ## Tests
 
 ```
