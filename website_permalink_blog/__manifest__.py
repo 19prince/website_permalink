@@ -1,7 +1,7 @@
 {
     "name": "Website Permalink - Blog",
-    "summary": "URL controls for website_permalink on Blog forms.",
-    "version": "18.0.1.3.1",
+    "summary": "Add-on, installs automatically with Website Permalink + Blog. URL fields on blog post forms.",
+    "version": "18.0.1.3.2",
     "category": "Website/Website",
     "license": "LGPL-3",
     "author": "19 Prince",
