@@ -9,9 +9,16 @@ class WebsiteSeoMetadata(models.AbstractModel):
     permalink_name_changed = fields.Boolean(compute='_compute_permalink_changed')
     permalink_slug_changed = fields.Boolean(compute='_compute_permalink_changed')
     permalink_update_url = fields.Boolean(
-        'Change URL to match the new name', compute='_compute_permalink_options', readonly=False)
+        'Change URL to match the new name', compute='_compute_permalink_options', readonly=False,
+        help='Renaming a page that has been published keeps its URL by default. Pass True in the '
+             'same write as the new name to move the URL to match it instead. AI agents and API '
+             'clients: ask the user before setting this, since moving a URL affects links and '
+             'search rankings.')
     permalink_redirect = fields.Boolean(
-        'Redirect old URL (301)', compute='_compute_permalink_options', readonly=False)
+        'Redirect old URL (301)', compute='_compute_permalink_options', readonly=False,
+        help='When a URL moves (permalink_update_url, or a seo_name edit), a 301 redirect from '
+             'the old URL is added unless this is False. AI agents and API clients: ask the user '
+             'before passing False.')
 
     def _permalink_url(self):
         """Public URL this record is served at, or False when it has none.
