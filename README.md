@@ -51,6 +51,12 @@ record.write({'name': 'New Title', 'permalink_update_url': True})  # URL follows
 record.write({'name': 'New Title'})                                # URL kept (default)
 ```
 
+## Known limitations
+
+- **Moving a page to another website in the same save as a rename.** The 301 is created on the new website only. The old website gets no redirect for that URL; Odoo's ID-based lookup still finds the page if it is still visible there.
+- **Moving a blog post to a different blog.** On standard Odoo a post URL contains its blog (`/blog/news-1/my-post-5`), so moving the post to another blog changes its URL (`/blog/journal-2/my-post-5`). The module does not treat that as a rename: no dialog and no 301, though Odoo's ID-based lookup still lands old links on the post. With [Odoo Blog Flat URLs](https://github.com/19prince/Odoo-Blog-Flat-URLs) installed this cannot happen: posts are served at `/blog/my-post-5`, with no blog in the URL, so moving a post between blogs leaves its URL alone (and renaming a blog never touches post URLs either).
+- **Performance is not benchmarked.** Each language has its own URL (`/shop/chair-12`, `/fr/shop/chaise-12`), so a rename reads and pins the URL once per installed language, and renaming a blog or a parent category also checks every post or subcategory under it. On a single-language site this is one read per page, as before. Large blog renames or bulk renames by import on multi-language sites may be noticeably slower; measure before rolling out to a big catalog.
+
 ## Tests
 
 ```

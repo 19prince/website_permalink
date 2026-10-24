@@ -35,3 +35,11 @@ class PermalinkPublishedMixin(models.AbstractModel):
         if vals.get('is_published') or vals.get('website_published'):
             vals['permalink_was_published'] = True
         return super().write(vals)
+
+    def copy(self, default=None):
+        # a copy is a new, never-published page: it follows its own name rather
+        # than inheriting the slug pinned on the original. Passed through
+        # default (not copy_data) so copy_translations skips it too.
+        default = dict(default or {})
+        default.setdefault('seo_name', False)
+        return super().copy(default=default)

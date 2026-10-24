@@ -1,7 +1,7 @@
 {
     "name": "Website Permalink - eCommerce",
     "summary": "Add-on, installs automatically with Website Permalink + eCommerce. URL fields on product and category forms.",
-    "version": "18.0.1.3.2",
+    "version": "18.0.1.4.0",
     "category": "Website/Website",
     "license": "LGPL-3",
     "author": "19 Prince",
