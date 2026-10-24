@@ -1,7 +1,7 @@
 {
     "name": "Website Permalink",
     "summary": "Keep page URLs when you rename them. Install this one: the eCommerce and Blog add-ons install themselves.",
-    "version": "19.0.1.3.2",
+    "version": "19.0.1.4.0",
     "category": "Website/Website",
     "license": "LGPL-3",
     "author": "19 Prince",
