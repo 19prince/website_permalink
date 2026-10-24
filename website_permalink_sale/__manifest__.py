@@ -1,7 +1,7 @@
 {
     "name": "Website Permalink - eCommerce",
-    "summary": "URL controls for website_permalink on eCommerce forms.",
-    "version": "20.0.1.3.1",
+    "summary": "Add-on, installs automatically with Website Permalink + eCommerce. URL fields on product and category forms.",
+    "version": "20.0.1.3.2",
     "category": "Website/Website",
     "license": "LGPL-3",
     "author": "19 Prince",

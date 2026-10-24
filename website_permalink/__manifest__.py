@@ -1,7 +1,7 @@
 {
     "name": "Website Permalink",
-    "summary": "Keep a published page's URL when you rename it: products, categories, blog posts, events.",
-    "version": "20.0.1.3.1",
+    "summary": "Keep page URLs when you rename them. Install this one: the eCommerce and Blog add-ons install themselves.",
+    "version": "20.0.1.3.2",
     "category": "Website/Website",
     "license": "LGPL-3",
     "author": "19 Prince",

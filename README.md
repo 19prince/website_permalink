@@ -4,13 +4,30 @@ Keep a published page's URL when you rename it. Odoo 20.
 
 Odoo builds product, category and blog post URLs from the name, so renaming one moves its URL and loses its links and search rankings. On rename, this module copies the old slug into `seo_name`, which core Odoo already uses for the URL, so the URL stays put.
 
-## Modules
+## Which module do I install?
 
-| Module | What it adds | Installs |
+**Install `Website Permalink` only.** The other two are add-ons that install themselves when they are needed. You never install them by hand.
+
+| Module | Install it? | What it does |
 |---|---|---|
-| `website_permalink` | The rule, the 301 handling, the save-time dialog | You install this |
-| `website_permalink_sale` | URL fields + notice on product and eCommerce category forms | Automatically with eCommerce |
-| `website_permalink_blog` | URL fields + notice on blog post forms | Automatically with Blog |
+| **Website Permalink** (`website_permalink`) | **Yes. This is the one you install.** | The rules: keeps URLs on rename, adds 301s when a URL moves, shows the pop-up on save. Needs only the Website app. |
+| Website Permalink - eCommerce (`website_permalink_sale`) | No, automatic | Adds the URL fields and rename notice to product and eCommerce category forms. Installs itself when Website Permalink **and** eCommerce are both installed. |
+| Website Permalink - Blog (`website_permalink_blog`) | No, automatic | Adds the URL fields and rename notice to blog post forms. Installs itself when Website Permalink **and** Blog are both installed. |
+
+### Why three modules
+
+Products live in the eCommerce app and blog posts in the Blog app. If one module covered both, every database would have to install both apps, even a shop with no blog. Splitting them means each add-on only appears where its app exists. This is Odoo's standard "bridge module" pattern.
+
+### What you get in each setup
+
+| Your database has | Installed after you install Website Permalink | Covered |
+|---|---|---|
+| Website only | Website Permalink | Rules only (no forms to add fields to) |
+| Website + Blog | Website Permalink + Blog add-on | Blog posts |
+| Website + eCommerce | Website Permalink + eCommerce add-on | Products, eCommerce categories |
+| Website + Blog + eCommerce | All three | Blog posts, products, eCommerce categories |
+
+Install Blog or eCommerce later and its add-on installs itself then. To remove everything, uninstall **Website Permalink**; the add-ons go with it.
 
 ## Behaviour
 
