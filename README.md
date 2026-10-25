@@ -2,6 +2,8 @@
 
 Keep a published page's URL when you rename it. Odoo 20.
 
+Branches: [`18.0`](https://github.com/19prince/website_permalink/tree/18.0), [`19.0`](https://github.com/19prince/website_permalink/tree/19.0), [`20.0`](https://github.com/19prince/website_permalink/tree/20.0). Use the branch that matches your Odoo version.
+
 Odoo builds product, category and blog post URLs from the name, so renaming one moves its URL and loses its links and search rankings. On rename, this module copies the old slug into `seo_name`, which core Odoo already uses for the URL, so the URL stays put.
 
 ## Which module do I install?
@@ -28,6 +30,25 @@ Products live in the eCommerce app and blog posts in the Blog app. If one module
 | Website + Blog + eCommerce | All three | Blog posts, products, eCommerce categories |
 
 Install Blog or eCommerce later and its add-on installs itself then. To remove everything, uninstall **Website Permalink**; the add-ons go with it.
+
+## Installation
+
+### Odoo.sh / on-premise
+
+1. Copy the three folders (`website_permalink/`, `website_permalink_blog/`, `website_permalink_sale/`) into your addons path. On Odoo.sh, commit them to the branch that backs your build.
+2. In developer mode, go to **Apps > Update Apps List**.
+3. In Apps, remove the **Apps** filter, search **"permalink"**, and install **Website Permalink**. The add-ons follow on their own.
+4. Hard refresh the backend (Cmd/Ctrl+Shift+R) so the rename pop-up loads.
+
+Nothing changes on install: every URL stays what it is today. The module only acts on the next rename.
+
+### Odoo Online (SaaS)
+
+Odoo Online doesn't allow custom Python modules, so this can't be installed there.
+
+### Uninstalling
+
+URLs stay where they are. Pinned slugs live in Odoo's own URL Slug field (`seo_name`) and redirects stay under **Website > Configuration > Redirects**. After uninstalling, renames move URLs again, as in standard Odoo.
 
 ## Behaviour
 
@@ -63,3 +84,11 @@ record.write({'name': 'New Title'})                                # URL kept (d
 odoo-bin -d <db> -i website_sale,website_blog,website_permalink --test-enable \
   --test-tags /website_permalink_sale,/website_permalink_blog --stop-after-init
 ```
+
+## License
+
+LGPL-3. See [LICENSE](LICENSE).
+
+## About 19 Prince
+
+[19 Prince](https://www.19prince.com) helps businesses on Odoo drive more demand with the tool they already own. More free modules: [19prince.com/resources](https://www.19prince.com/resources).
